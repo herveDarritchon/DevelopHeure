@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.orange.com/Interfaces/ManageMarket/v1"
+	xmlns:intf="http://www.orange.com/Interfaces/ManageMarket/v1"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:exception="http://www.orange.com/Interfaces/ManageMarket/v1/exception" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:types>	
+	
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:exception="http://www.orange.com/Interfaces/ManageMarket/v1/exception">
+			
+			<import namespace="http://www.orange.com/Interfaces/ManageMarket/v1/exception" schemaLocation="exception.xsd" />
+			
+		</schema>
+		
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.orange.com/Interfaces/ManageMarket/v1" 
+			xmlns:model="http://www.orange.com/Interfaces/ManageMarket/v1/model"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			elementFormDefault="qualified">
+			
+			<import namespace="http://www.orange.com/Interfaces/ManageMarket/v1/model" schemaLocation="model.xsd" />
+
+			<element name="findAllMarkets">
+				<complexType />
+			</element>
+			
+			<element name="findAllMarketsResponse">
+				<complexType>
+					<sequence>
+						<element name="findAllMarketsReturn"
+							type="model:MarketSoap" maxOccurs="unbounded" />
+					</sequence>
+				</complexType>
+			</element>
+			
+
+			<element name="createMarket">
+				<complexType>
+					<sequence>
+						<element name="market" type="model:MarketSoap" />
+					</sequence>
+				</complexType>
+			</element>
+			
+			<element name="createMarketResponse">
+				<complexType />
+			</element>
+			
+
+			<element name="modifyMarket">
+				<complexType>
+					<sequence>
+						<element name="market" type="model:MarketSoap" />
+					</sequence>
+				</complexType>
+			</element>
+			
+			<element name="modifyMarketResponse">
+				<complexType />
+			</element>
+			
+			
+			<element name="deleteMarket">
+				<complexType>
+					<sequence>
+						<element name="id" type="xsd:int" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="deleteMarketResponse">
+				<complexType />
+			</element>
+
+		</schema>
+		
+
+	</wsdl:types>
+	<wsdl:message name="modifyMarketRequest">
+		<wsdl:part name="parameters" element="intf:modifyMarket" />
+	</wsdl:message>
+	<wsdl:message name="createMarketRequest">
+		<wsdl:part name="parameters" element="intf:createMarket" />
+	</wsdl:message>
+	<wsdl:message name="createMarketResponse">
+		<wsdl:part name="parameters" element="intf:createMarketResponse" />
+	</wsdl:message>
+	<wsdl:message name="invalidMarketErrorFault">
+		<wsdl:part name="fault" element="exception:invalidMarketError" />
+	</wsdl:message>
+	<wsdl:message name="technicalErrorFault">
+		<wsdl:part name="fault" element="exception:technicalError" />
+	</wsdl:message>
+	<wsdl:message name="notFoundErrorFault">
+		<wsdl:part name="fault" element="exception:notFoundError" />
+	</wsdl:message>
+	<wsdl:message name="modifyMarketResponse">
+		<wsdl:part name="parameters"
+			element="intf:modifyMarketResponse" />
+	</wsdl:message>
+	<wsdl:message name="deleteMarketResponse">
+		<wsdl:part name="parameters"
+			element="intf:deleteMarketResponse" />
+	</wsdl:message>
+	<wsdl:message name="deleteMarketRequest">
+		<wsdl:part name="parameters" element="intf:deleteMarket" />
+	</wsdl:message>
+	<wsdl:message name="findAllMarketsRequest">
+		<wsdl:part name="parameters"
+			element="intf:findAllMarkets" />
+	</wsdl:message>
+	<wsdl:message name="findAllMarketsResponse">
+		<wsdl:part name="parameters"
+			element="intf:findAllMarketsResponse" />
+	</wsdl:message>
+	
+	<wsdl:portType name="ManageMarketSoap">
+		<wsdl:operation name="findAllMarkets">
+			<wsdl:input name="findAllMarketsRequest"
+				message="intf:findAllMarketsRequest" />
+			<wsdl:output name="findAllMarketsResponse"
+				message="intf:findAllMarketsResponse" />
+			<wsdl:fault name="technicalErrorFault"
+				message="intf:technicalErrorFault" />
+			<wsdl:fault name="notFoundErrorFault"
+				message="intf:notFoundErrorFault" />
+		</wsdl:operation>
+		<wsdl:operation name="createMarket">
+			<wsdl:input name="createMarketRequest"
+				message="intf:createMarketRequest" />
+			<wsdl:output name="createMarketResponse"
+				message="intf:createMarketResponse" />
+			<wsdl:fault name="invalidMarketErrorFault"
+				message="intf:invalidMarketErrorFault" />
+			<wsdl:fault name="technicalErrorFault"
+				message="intf:technicalErrorFault" />
+		</wsdl:operation>
+		<wsdl:operation name="modifyMarket">
+			<wsdl:input name="modifyMarketRequest"
+				message="intf:modifyMarketRequest" />
+			<wsdl:output name="modifyMarketResponse"
+				message="intf:modifyMarketResponse" />
+			<wsdl:fault name="invalidMarketErrorFault"
+				message="intf:invalidMarketErrorFault" />
+			<wsdl:fault name="notFoundErrorFault"
+				message="intf:notFoundErrorFault" />
+			<wsdl:fault name="technicalErrorFault"
+				message="intf:technicalErrorFault" />
+		</wsdl:operation>
+		<wsdl:operation name="deleteMarket">
+			<wsdl:input name="deleteMarketRequest"
+				message="intf:deleteMarketRequest" />
+			<wsdl:output name="deleteMarketResponse"
+				message="intf:deleteMarketResponse" />
+			<wsdl:fault name="invalidMarketErrorFault"
+				message="intf:invalidMarketErrorFault" />
+			<wsdl:fault name="technicalErrorFault"
+				message="intf:technicalErrorFault" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	
+	<wsdl:binding name="MarketManagementSoapBinding"
+		type="intf:ManageMarketSoap">
+		<wsdlsoap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="findAllMarkets">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="findAllMarketsRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findAllMarketsResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="technicalErrorFault">
+				<wsdlsoap:fault name="technicalErrorFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="notFoundErrorFault">
+				<wsdlsoap:fault name="notFoundErrorFault"
+					use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="createMarket">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="createMarketRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="createMarketResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="technicalErrorFault">
+				<wsdlsoap:fault name="technicalErrorFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="modifyMarket">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="modifyMarketRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="modifyMarketResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="invalidMarketErrorFault">
+				<wsdlsoap:fault name="invalidMarketErrorFault"
+					use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="notFoundErrorFault">
+				<wsdlsoap:fault name="notFoundErrorFault"
+					use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="technicalErrorFault">
+				<wsdlsoap:fault name="technicalErrorFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="deleteMarket">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="deleteMarketRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="deleteMarketResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="invalidMarketErrorFault">
+				<wsdlsoap:fault name="invalidMarketErrorFault"
+					use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="technicalErrorFault">
+				<wsdlsoap:fault name="technicalErrorFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	
+	<wsdl:service name="ManageMarketSoapService">
+		<wsdl:port name="MarketManagement"
+			binding="intf:MarketManagementSoapBinding">
+			<wsdlsoap:address
+				location="http://localhost:9000/myappli/services/managemarket-1.0" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

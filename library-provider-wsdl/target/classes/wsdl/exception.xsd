@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.orange.com/Interfaces/ManageMarket/v1/exception"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.orange.com/Interfaces/ManageMarket/v1/exception"
+	elementFormDefault="qualified">
+
+
+	<complexType name="WSError">
+		<sequence>
+			<element name="localisationClass" minOccurs="0"
+				type="xsd:string" />
+			<element name="localisationMethod" minOccurs="0"
+				type="xsd:string" />
+			<element name="reason" minOccurs="0" type="xsd:string" />
+			<element name="message" minOccurs="0" type="xsd:string" />
+		</sequence>
+	</complexType>
+
+
+	<complexType name="WSTechnicalError">
+		<complexContent>
+			<extension base="tns:WSError">
+				<sequence />
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+
+	<complexType name="WSFunctionalError">
+		<complexContent>
+			<extension base="tns:WSError">
+				<sequence />
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+
+	<element name="technicalError">
+		<complexType>
+			<complexContent>
+				<xsd:extension base="tns:WSTechnicalError" />
+			</complexContent>
+		</complexType>
+	</element>
+
+
+
+	<element name="notFoundError">
+		<complexType>
+			<complexContent>
+				<xsd:extension base="tns:WSFunctionalError" />
+			</complexContent>
+		</complexType>
+	</element>
+
+
+
+	<element name="invalidMarketError">
+		<complexType>
+			<complexContent>
+				<xsd:extension base="tns:WSFunctionalError" />
+			</complexContent>
+		</complexType>
+	</element>
+
+</schema>

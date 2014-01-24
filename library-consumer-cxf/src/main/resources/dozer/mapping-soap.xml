@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<configuration>
+		<!-- Example for date conversion -->
+		<custom-converters><!-- these are always bi-directional -->
+			<converter
+				type="com.orange.library.library.consumersoap.mapping.XMLGregorianConverter">
+				<class-a>
+					javax.xml.datatype.XMLGregorianCalendar
+				</class-a>
+				<class-b>java.util.Date</class-b>
+			</converter>
+		</custom-converters>
+	</configuration>
+
+	<!-- As Soap model and Bean model have same properties, no need to customize dozer mapping -->
+	<mapping>
+		<class-a>com.orange.library.library.consumersoap.model.MarcheSoap</class-a>
+		<class-b>com.orange.library.library.model.MarketBean</class-b>
+		<!-- Defines the only different attribute name between class-a and class-b -->
+		<field>
+			<a>nom</a>
+			<b>name</b>
+		</field>
+	</mapping>
+
+</mappings>

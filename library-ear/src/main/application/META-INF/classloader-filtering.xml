@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-loader-filtering xmlns="http://org.ow2.jonas.lib.loader.mapping">
+
+  <!--
+    List of filters used to exclude packages/resources that are used
+    internally by the application.
+  -->
+  <default-filters>
+
+	<!-- Use provided JPA 2.0 API -->
+	<filter-name>javax.persistence.*</filter-name>
+	
+	<!-- Use provided CXF -->
+	<filter-name>org.apache.cxf.*</filter-name>
+
+	<!-- needed to use the cxf.xml file imported into the Spring config file(s) : soapConsumerContext.xml or jaxwsMarketContext.xml -->
+	<filter-name>META-INF/cxf/.*</filter-name>
+
+	<!-- solve this exception :
+	Caused by: java.lang.NoSuchMethodException: NoSuchMethodException : org.apache.ws.commons.schema.XmlSchemaCollection.read(org.w3c.dom.Document, java.lang.String) : org.apache.ws.commons.schema.XmlSchema
+        at org.apache.cxf.common.xmlschema.SchemaCollection.read(SchemaCollection.java:130)
+	 -->
+	<filter-name>org.apache.ws.*</filter-name>
+	
+	<!-- solve this exception :
+	Caused by: org.hibernate.AnnotationException: java.lang.NoSuchMethodException: org.hibernate.validator.ClassValidator.<init>(java.lang.Class, java.util.ResourceBundle, org.hibernate.validator.MessageInterpolator, java.util.Map, org.hibernate.annotations.common.reflection.ReflectionManager)
+        at org.hibernate.cfg.AnnotationConfiguration.applyHibernateValidatorLegacyConstraintsOnDDL(AnnotationConfiguration.java:455)
+	 -->
+	<filter-name>org.hibernate.*</filter-name>
+	
+	<!-- Use provided Spring -->
+	<filter-name>org.springframework.*</filter-name>
+
+	<!-- filter for slf4j to force local slf4j->logback configuration (otherwise, the slf4j->monolog configuration from jonas is used)  -->
+	<filter-name>org.slf4j.*</filter-name>
+	
+	<!-- filter for commons logging (JCL) to avoid StackOverflowError caused by recursive calls between JCL bridge in war and JCL implementation in Jonas -->		
+	<filter-name>org.apache.commons.logging.*</filter-name>   
+	 
+	<!-- Solve following exception when deploying ear on a jonas instance configured with hibernate 4 which uses JBoss Logging 
+	Error creating bean with name 'myEntityManagerFactory' defined in class path resource [com/francetelecom/clara/cloud/commons/jpa/jpa-context.xml]: 
+	Invocation of init method failed; nested exception is java.lang.NoSuchMethodError: org.jboss.logging.Logger.getMessageLogger(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Object;
+	-->
+	<filter-name>org.jboss.logging.*</filter-name>
+
+	<!-- Additional filters needed with cxf 2.7.x when jaxws jonas service is started -->
+	<!--  solve this exception on Jonas (uses provided neethi3 from cxf 2.7.5 instead of Jonas neethi2) : 
+	Caused by: org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [org.apache.cxf.bus.spring.SpringBus]: 
+	Constructor threw exception; nested exception is org.apache.cxf.bus.extension.ExtensionException: Could not load extension class org.apache.cxf.ws.policy.AssertionBuilderRegistryImpl. -->
+	<filter-name>org.apache.neethi.*</filter-name>
+
+	<!--  solve this exception on Jonas (uses provided woodstock 4.2 and stax2 api from cxf 2.7.5 instead of those from Jonas) : 
+	Caused by: java.lang.RuntimeException: Cannot create a secure XMLInputFactory
+        at org.apache.cxf.staxutils.StaxUtils.createXMLInputFactory(StaxUtils.java:300) ~[cxf-api-2.7.5.jar:2.7.5] -->
+	<filter-name>com.ctc.wstx.*</filter-name>
+	<filter-name>org.codehaus.stax2.*</filter-name>
+
+		 
+  </default-filters>
+</class-loader-filtering>

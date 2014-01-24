@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<orange-paas-application>
+	<!-- use the "application name" field on application details page -->
+    <applicationName>library</applicationName>
+	<!-- use the "release version" field on release details page -->
+    <releaseVersion>0.0.1-SNAPSHOT</releaseVersion>
+    <deployments>
+        <deployment>
+        	<!-- use the "JEE label" field on release architecture details page -->
+            <executionNode>library-jee</executionNode>
+			<!-- use the maven references fields on release architecture details page -->
+            <artifact>
+                <groupId>com.orange.library.library</groupId>
+                <artifactId>library-ear</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <type>ear</type>
+            </artifact>
+        </deployment>
+    </deployments>
+</orange-paas-application>

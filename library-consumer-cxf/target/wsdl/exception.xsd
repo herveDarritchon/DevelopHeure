@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.orange.com/Interfaces/GererMarche/v1/exception"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.orange.com/Interfaces/GererMarche/v1/exception"
+	elementFormDefault="qualified">
+
+
+	<complexType name="WSErreur">
+		<sequence>
+			<element name="localisationClass" minOccurs="0"
+				type="xsd:string" />
+			<element name="localisationMethod" minOccurs="0"
+				type="xsd:string" />
+			<element name="reason" minOccurs="0" type="xsd:string" />
+			<element name="message" minOccurs="0" type="xsd:string" />
+		</sequence>
+	</complexType>
+
+
+	<complexType name="WSErreurTechnique">
+		<complexContent>
+			<extension base="tns:WSErreur">
+				<sequence />
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+
+	<complexType name="WSErreurFonctionnelle">
+		<complexContent>
+			<extension base="tns:WSErreur">
+				<sequence />
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+
+	<element name="erreurTechnique">
+		<complexType>
+			<complexContent>
+				<xsd:extension base="tns:WSErreurTechnique" />
+			</complexContent>
+		</complexType>
+	</element>
+
+
+
+	<element name="erreurMarcheNonTrouve">
+		<complexType>
+			<complexContent>
+				<xsd:extension base="tns:WSErreurFonctionnelle" />
+			</complexContent>
+		</complexType>
+	</element>
+
+
+
+	<element name="erreurMarcheInvalide">
+		<complexType>
+			<complexContent>
+				<xsd:extension base="tns:WSErreurFonctionnelle" />
+			</complexContent>
+		</complexType>
+	</element>
+
+</schema>

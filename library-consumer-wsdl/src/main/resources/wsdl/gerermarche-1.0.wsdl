@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.orange.com/Interfaces/GererMarche/v1"
+	xmlns:intf="http://www.orange.com/Interfaces/GererMarche/v1"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:exception="http://www.orange.com/Interfaces/GererMarche/v1/exception" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:types>	
+	
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:exception="http://www.orange.com/Interfaces/GererMarche/v1/exception">
+			
+			<import namespace="http://www.orange.com/Interfaces/GererMarche/v1/exception" schemaLocation="exception.xsd" />
+			
+		</schema>
+		
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.orange.com/Interfaces/GererMarche/v1" 
+			xmlns:model="http://www.orange.com/Interfaces/GererMarche/v1/model"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			elementFormDefault="qualified">
+			
+			<import namespace="http://www.orange.com/Interfaces/GererMarche/v1/model" schemaLocation="model.xsd" />
+
+			<element name="rechercherMarches">
+				<complexType />
+			</element>			
+			<element name="rechercherMarchesResponse">
+				<complexType>
+					<sequence>
+						<element name="rechercherMarchesReturn"	type="model:MarcheSoap" maxOccurs="unbounded" />
+					</sequence>
+				</complexType>
+			</element>
+			
+
+			<element name="rechercherMarchesParNom">
+				<complexType>
+					<sequence>
+						<element name="nom" type="xsd:string" />
+					</sequence>
+				</complexType>
+			</element>			
+			<element name="rechercherMarchesParNomResponse">
+				<complexType>
+					<sequence>
+						<element name="rechercherMarchesParNomReturn"	type="model:MarcheSoap" maxOccurs="unbounded" />
+					</sequence>
+				</complexType>
+			</element>
+
+
+			<element name="consulterMarche">
+				<complexType>
+					<sequence>
+						<element name="id" type="xsd:int" />
+					</sequence>
+				</complexType>
+			</element>			
+			<element name="consulterMarcheResponse">
+				<complexType>
+					<sequence>
+						<element name="consulterMarcheReturn"	type="model:MarcheSoap" />
+					</sequence>
+				</complexType>
+			</element>
+
+
+			<element name="creerMarche">
+				<complexType>
+					<sequence>
+						<element name="marche" type="model:MarcheSoap" />
+					</sequence>
+				</complexType>
+			</element>			
+			<element name="creerMarcheResponse">
+				<complexType />
+			</element>
+			
+
+			<element name="modifierMarche">
+				<complexType>
+					<sequence>
+						<element name="marche" type="model:MarcheSoap" />
+					</sequence>
+				</complexType>
+			</element>			
+			<element name="modifierMarcheResponse">
+				<complexType />
+			</element>
+			
+			
+			<element name="supprimerMarche">
+				<complexType>
+					<sequence>
+						<element name="id" type="xsd:int" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="supprimerMarcheResponse">
+				<complexType />
+			</element>
+
+		</schema>
+		
+
+	</wsdl:types>
+	<wsdl:message name="modifierMarcheRequest">
+		<wsdl:part name="parameters" element="intf:modifierMarche" />
+	</wsdl:message>
+	<wsdl:message name="creerMarcheRequest">
+		<wsdl:part name="parameters" element="intf:creerMarche" />
+	</wsdl:message>
+	<wsdl:message name="creerMarcheResponse">
+		<wsdl:part name="parameters" element="intf:creerMarcheResponse" />
+	</wsdl:message>
+	<wsdl:message name="erreurMarcheInvalideFault">
+		<wsdl:part name="fault" element="exception:erreurMarcheInvalide" />
+	</wsdl:message>
+	<wsdl:message name="erreurTechniqueFault">
+		<wsdl:part name="fault" element="exception:erreurTechnique" />
+	</wsdl:message>
+	<wsdl:message name="erreurMarcheNonTrouveFault">
+		<wsdl:part name="fault" element="exception:erreurMarcheNonTrouve" />
+	</wsdl:message>
+	<wsdl:message name="modifierMarcheResponse">
+		<wsdl:part name="parameters" element="intf:modifierMarcheResponse" />
+	</wsdl:message>
+	<wsdl:message name="supprimerMarcheResponse">
+		<wsdl:part name="parameters" element="intf:supprimerMarcheResponse" />
+	</wsdl:message>
+	<wsdl:message name="supprimerMarcheRequest">
+		<wsdl:part name="parameters" element="intf:supprimerMarche" />
+	</wsdl:message>
+	<wsdl:message name="rechercherMarchesRequest">
+		<wsdl:part name="parameters" element="intf:rechercherMarches" />
+	</wsdl:message>
+	<wsdl:message name="rechercherMarchesResponse">
+		<wsdl:part name="parameters" element="intf:rechercherMarchesResponse" />
+	</wsdl:message>
+	<wsdl:message name="rechercherMarchesParNomRequest">
+		<wsdl:part name="parameters" element="intf:rechercherMarchesParNom" />
+	</wsdl:message>
+	<wsdl:message name="rechercherMarchesParNomResponse">
+		<wsdl:part name="parameters" element="intf:rechercherMarchesParNomResponse" />
+	</wsdl:message>
+	<wsdl:message name="consulterMarcheRequest">
+		<wsdl:part name="parameters" element="intf:consulterMarche" />
+	</wsdl:message>
+	<wsdl:message name="consulterMarcheResponse">
+		<wsdl:part name="parameters" element="intf:consulterMarcheResponse" />
+	</wsdl:message>
+	
+	<wsdl:portType name="GererMarcheSoap">
+		<wsdl:operation name="rechercherMarches">
+			<wsdl:input name="rechercherMarchesRequest" message="intf:rechercherMarchesRequest" />
+			<wsdl:output name="rechercherMarchesResponse" message="intf:rechercherMarchesResponse" />
+			<wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault" />
+			<wsdl:fault name="erreurMarcheNonTrouveFault" message="intf:erreurMarcheNonTrouveFault" />
+		</wsdl:operation>
+		<wsdl:operation name="rechercherMarchesParNom">
+			<wsdl:input name="rechercherMarchesParNomRequest" message="intf:rechercherMarchesParNomRequest" />
+			<wsdl:output name="rechercherMarchesParNomResponse" message="intf:rechercherMarchesParNomResponse" />
+			<wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault" />
+			<wsdl:fault name="erreurMarcheNonTrouveFault" message="intf:erreurMarcheNonTrouveFault" />
+		</wsdl:operation>
+		<wsdl:operation name="creerMarche">
+			<wsdl:input name="creerMarcheRequest" message="intf:creerMarcheRequest" />
+			<wsdl:output name="creerMarcheResponse" message="intf:creerMarcheResponse" />
+			<wsdl:fault name="erreurMarcheInvalideFault" message="intf:erreurMarcheInvalideFault" />
+			<wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault" />
+		</wsdl:operation>
+		<wsdl:operation name="modifierMarche">
+			<wsdl:input name="modifierMarcheRequest" message="intf:modifierMarcheRequest" />
+			<wsdl:output name="modifierMarcheResponse" message="intf:modifierMarcheResponse" />
+			<wsdl:fault name="erreurMarcheInvalideFault" message="intf:erreurMarcheInvalideFault" />
+			<wsdl:fault name="erreurMarcheNonTrouveFault" message="intf:erreurMarcheNonTrouveFault" />
+			<wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault" />
+		</wsdl:operation>
+		<wsdl:operation name="supprimerMarche">
+			<wsdl:input name="supprimerMarcheRequest" message="intf:supprimerMarcheRequest" />
+			<wsdl:output name="supprimerMarcheResponse" message="intf:supprimerMarcheResponse" />
+			<wsdl:fault name="erreurMarcheInvalideFault" message="intf:erreurMarcheInvalideFault" />
+			<wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault" />
+		</wsdl:operation>
+		<wsdl:operation name="consulterMarche">
+			<wsdl:input name="consulterMarcheRequest" message="intf:consulterMarcheRequest" />
+			<wsdl:output name="consulterMarcheResponse" message="intf:consulterMarcheResponse" />
+			<wsdl:fault name="erreurMarcheNonTrouveFault" message="intf:erreurMarcheNonTrouveFault" />
+			<wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	
+	<wsdl:binding name="GestionMarcheSoapBinding" type="intf:GererMarcheSoap">
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="rechercherMarches">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="rechercherMarchesRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="rechercherMarchesResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="erreurTechniqueFault">
+				<wsdlsoap:fault name="erreurTechniqueFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="erreurMarcheNonTrouveFault">
+				<wsdlsoap:fault name="erreurMarcheNonTrouveFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="rechercherMarchesParNom">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="rechercherMarchesParNomRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="rechercherMarchesParNomResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="erreurTechniqueFault">
+				<wsdlsoap:fault name="erreurTechniqueFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="erreurMarcheNonTrouveFault">
+				<wsdlsoap:fault name="erreurMarcheNonTrouveFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="creerMarche">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="creerMarcheRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="creerMarcheResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="erreurTechniqueFault">
+				<wsdlsoap:fault name="erreurTechniqueFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="modifierMarche">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="modifierMarcheRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="modifierMarcheResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="erreurMarcheInvalideFault">
+				<wsdlsoap:fault name="erreurMarcheInvalideFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="erreurMarcheNonTrouveFault">
+				<wsdlsoap:fault name="erreurMarcheNonTrouveFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="erreurTechniqueFault">
+				<wsdlsoap:fault name="erreurTechniqueFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="supprimerMarche">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="supprimerMarcheRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="supprimerMarcheResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="erreurMarcheInvalideFault">
+				<wsdlsoap:fault name="erreurMarcheInvalideFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="erreurTechniqueFault">
+				<wsdlsoap:fault name="erreurTechniqueFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="consulterMarche">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="consulterMarcheRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="consulterMarcheResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="erreurMarcheNonTrouveFault">
+				<wsdlsoap:fault name="erreurMarcheNonTrouveFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="erreurTechniqueFault">
+				<wsdlsoap:fault name="erreurTechniqueFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	
+	<wsdl:service name="GererMarcheSoapService">
+		<wsdl:port name="GestionMarche" binding="intf:GestionMarcheSoapBinding">
+			<wsdlsoap:address location="http://localhost:9000/myappli/services/gerermarche-1.0" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

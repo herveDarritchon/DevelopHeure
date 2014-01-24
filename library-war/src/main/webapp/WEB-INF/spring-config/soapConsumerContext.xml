@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:wsa="http://cxf.apache.org/ws/addressing"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:http="http://cxf.apache.org/transports/http/configuration"
+    xsi:schemaLocation="http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+	http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	
+	<!-- consumer layer -->
+	<bean id="gererMarche" 
+		class="com.orange.library.library.consumersoap.impl.GererMarcheImpl">
+		<property name="gererMarcheSoapProxy">
+			<ref bean="gererMarcheSoapProxy"/>
+		</property>
+		<property name="mapperSoap">
+		 	<ref bean="mapperSoap"/>
+		 </property>	
+	</bean>
+
+	<bean id="gererMarcheSoapProxy" 
+		class="com.orange.library.library.consumersoap.service.GererMarcheSoap" 
+		factory-bean="gererMarcheSoapFactory" factory-method="create" />		
+
+	<bean id="gererMarcheSoapFactory"
+		class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.orange.library.library.consumersoap.service.GererMarcheSoap"/>
+		<property name="address" value="http://localhost:9010/mock_archetype_cxfconsumer/services/gerermarche-1.0"/>
+	</bean>
+
+	<!-- dozer configuration -->
+	<bean id="mapperSoap" class="com.orange.library.library.consumersoap.mapping.MapperSoap" >
+	  <property name="mappingFiles">
+	    <list>
+	      <value>dozer/mapping-soap.xml</value>
+	    </list>
+	  </property>
+	</bean>
+	
+	<!-- specify timeouts when calling webservice server (for each operation) -->
+	<!--  "{targetNameSpace}name of portType + Port.http-conduit">-->
+	<!-- or  <http:conduit name="http://localhost:9010/mock_archetype_cxfconsumer/services/gerermarche-1.0.*">  -->
+	
+	
+	 <http:conduit name="{http://www.orange.com/Interfaces/GererMarche/v1}GererMarcheSoapPort.http-conduit"> 
+		<http:client ConnectionTimeout="5000" ReceiveTimeout="2000" AutoRedirect="true" AllowChunking="false" Connection="close" />
+	</http:conduit>
+
+</beans>

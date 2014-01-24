@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- logback configuration. This file should be put in JONAS_BASE/conf directory or in a dedicated classpath module in JBoss to easily modify it -->
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <Target>System.out</Target>
+    <encoder>
+      <pattern>%date{ISO8601} %-5level [%thread] %logger{30}\(%line\) - %message%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>/tmp/library.log</file>
+    <encoder>
+      <pattern>%date{ISO8601} %-5level [%thread] %logger{30}\(%line\) - %message%n</pattern>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <maxIndex>3</maxIndex>
+      <FileNamePattern>/tmp/library.log.%i</FileNamePattern>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <MaxFileSize>1000KB</MaxFileSize>
+    </triggeringPolicy>
+  </appender>
+  <logger name="com.orange.library.library" level="DEBUG"/>
+  <root level="INFO">
+    <appender-ref ref="stdout"/>
+    <appender-ref ref="file"/>
+  </root>
+</configuration>

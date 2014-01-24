@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.orange.com/Interfaces/GererMarche/v1/model"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:tns="http://www.orange.com/Interfaces/GererMarche/v1/model"
+	elementFormDefault="qualified">
+
+	<!-- common structure for model -->
+	<complexType abstract="true" name="AbstractModel">
+		<sequence>
+			<element name="description" type="xsd:string" minOccurs="0" />
+			<element name="nom" type="xsd:string" minOccurs="0" />
+			<element name="id" type="xsd:int" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
+	<!-- Marche is defined upon AbstractModel -->
+	<complexType name="MarcheSoap">
+		<complexContent>
+			<extension base="tns:AbstractModel">
+				<sequence />
+			</extension>
+		</complexContent>
+	</complexType>
+
+</schema>

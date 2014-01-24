@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="Mock_Archetype_cxfconsumer" resourceRoot="" soapui-version="2.0.2" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ProjectSettings@projectRoot">E:\workspace37\a_cxfcxf\archetype-cxf-cxf\library\soapui</con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="GestionMarcheSoapBinding" type="wsdl" bindingName="{http://www.orange.com/Interfaces/GererMarche/v1}GestionMarcheSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/E:/Projets/workspaceS6D1/library/library-consumer-cxf/src/main/resources/wsdl/gerermarche-1.0.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/E:/Projets/workspaceS6D1/library/library-consumer-cxf/src/main/resources/wsdl/gerermarche-1.0.wsdl"><con:part><con:url>file:\E:\Projets\workspaceS6D1\library\library-consumer-cxf\src\main\resources\wsdl\exception.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.orange.com/Interfaces/GererMarche/v1/exception" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.orange.com/Interfaces/GererMarche/v1/exception">
+  <complexType name="WSErreur">
+    <sequence>
+      <element name="localisationClass" minOccurs="0" type="xsd:string"/>
+      <element name="localisationMethod" minOccurs="0" type="xsd:string"/>
+      <element name="reason" minOccurs="0" type="xsd:string"/>
+      <element name="message" minOccurs="0" type="xsd:string"/>
+    </sequence>
+  </complexType>
+  <complexType name="WSErreurTechnique">
+    <complexContent>
+      <extension base="tns:WSErreur">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WSErreurFonctionnelle">
+    <complexContent>
+      <extension base="tns:WSErreur">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="erreurTechnique">
+    <complexType>
+      <complexContent>
+        <xsd:extension base="tns:WSErreurTechnique"/>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="erreurMarcheNonTrouve">
+    <complexType>
+      <complexContent>
+        <xsd:extension base="tns:WSErreurFonctionnelle"/>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="erreurMarcheInvalide">
+    <complexType>
+      <complexContent>
+        <xsd:extension base="tns:WSErreurFonctionnelle"/>
+      </complexContent>
+    </complexType>
+  </element>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\E:\Projets\workspaceS6D1\library\library-consumer-cxf\src\main\resources\wsdl\model.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.orange.com/Interfaces/GererMarche/v1/model" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:tns="http://www.orange.com/Interfaces/GererMarche/v1/model">
+  <!--common structure for model-->
+  <complexType abstract="true" name="AbstractModel">
+    <sequence>
+      <element name="description" type="xsd:string" minOccurs="0"/>
+      <element name="nom" type="xsd:string" minOccurs="0"/>
+      <element name="id" type="xsd:int" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--Marche is defined upon AbstractModel-->
+  <complexType name="MarcheSoap">
+    <complexContent>
+      <extension base="tns:AbstractModel">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/E:/Projets/workspaceS6D1/library/library-consumer-cxf/src/main/resources/wsdl/gerermarche-1.0.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.orange.com/Interfaces/GererMarche/v1" xmlns:intf="http://www.orange.com/Interfaces/GererMarche/v1" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:exception="http://www.orange.com/Interfaces/GererMarche/v1/exception" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://www.orange.com/Interfaces/GererMarche/v1/exception" schemaLocation="exception.xsd"/>
+    </schema>
+    <schema targetNamespace="http://www.orange.com/Interfaces/GererMarche/v1" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:model="http://www.orange.com/Interfaces/GererMarche/v1/model">
+      <import namespace="http://www.orange.com/Interfaces/GererMarche/v1/model" schemaLocation="model.xsd"/>
+      <element name="rechercherMarches">
+        <complexType/>
+      </element>
+      <element name="rechercherMarchesResponse">
+        <complexType>
+          <sequence>
+            <element name="rechercherMarchesReturn" type="model:MarcheSoap" maxOccurs="unbounded"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="rechercherMarchesParNom">
+        <complexType>
+          <sequence>
+            <element name="nom" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="rechercherMarchesParNomResponse">
+        <complexType>
+          <sequence>
+            <element name="rechercherMarchesParNomReturn" type="model:MarcheSoap" maxOccurs="unbounded"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="consulterMarche">
+        <complexType>
+          <sequence>
+            <element name="id" type="xsd:int"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="consulterMarcheResponse">
+        <complexType>
+          <sequence>
+            <element name="consulterMarcheReturn" type="model:MarcheSoap"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="creerMarche">
+        <complexType>
+          <sequence>
+            <element name="marche" type="model:MarcheSoap"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="creerMarcheResponse">
+        <complexType/>
+      </element>
+      <element name="modifierMarche">
+        <complexType>
+          <sequence>
+            <element name="marche" type="model:MarcheSoap"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="modifierMarcheResponse">
+        <complexType/>
+      </element>
+      <element name="supprimerMarche">
+        <complexType>
+          <sequence>
+            <element name="id" type="xsd:int"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="supprimerMarcheResponse">
+        <complexType/>
+      </element>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="modifierMarcheRequest">
+    <wsdl:part name="parameters" element="intf:modifierMarche"/>
+  </wsdl:message>
+  <wsdl:message name="creerMarcheRequest">
+    <wsdl:part name="parameters" element="intf:creerMarche"/>
+  </wsdl:message>
+  <wsdl:message name="creerMarcheResponse">
+    <wsdl:part name="parameters" element="intf:creerMarcheResponse"/>
+  </wsdl:message>
+  <wsdl:message name="erreurMarcheInvalideFault">
+    <wsdl:part name="fault" element="exception:erreurMarcheInvalide"/>
+  </wsdl:message>
+  <wsdl:message name="erreurTechniqueFault">
+    <wsdl:part name="fault" element="exception:erreurTechnique"/>
+  </wsdl:message>
+  <wsdl:message name="erreurMarcheNonTrouveFault">
+    <wsdl:part name="fault" element="exception:erreurMarcheNonTrouve"/>
+  </wsdl:message>
+  <wsdl:message name="modifierMarcheResponse">
+    <wsdl:part name="parameters" element="intf:modifierMarcheResponse"/>
+  </wsdl:message>
+  <wsdl:message name="supprimerMarcheResponse">
+    <wsdl:part name="parameters" element="intf:supprimerMarcheResponse"/>
+  </wsdl:message>
+  <wsdl:message name="supprimerMarcheRequest">
+    <wsdl:part name="parameters" element="intf:supprimerMarche"/>
+  </wsdl:message>
+  <wsdl:message name="rechercherMarchesRequest">
+    <wsdl:part name="parameters" element="intf:rechercherMarches"/>
+  </wsdl:message>
+  <wsdl:message name="rechercherMarchesResponse">
+    <wsdl:part name="parameters" element="intf:rechercherMarchesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="rechercherMarchesParNomRequest">
+    <wsdl:part name="parameters" element="intf:rechercherMarchesParNom"/>
+  </wsdl:message>
+  <wsdl:message name="rechercherMarchesParNomResponse">
+    <wsdl:part name="parameters" element="intf:rechercherMarchesParNomResponse"/>
+  </wsdl:message>
+  <wsdl:message name="consulterMarcheRequest">
+    <wsdl:part name="parameters" element="intf:consulterMarche"/>
+  </wsdl:message>
+  <wsdl:message name="consulterMarcheResponse">
+    <wsdl:part name="parameters" element="intf:consulterMarcheResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="GererMarcheSoap">
+    <wsdl:operation name="rechercherMarches">
+      <wsdl:input name="rechercherMarchesRequest" message="intf:rechercherMarchesRequest"/>
+      <wsdl:output name="rechercherMarchesResponse" message="intf:rechercherMarchesResponse"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+      <wsdl:fault name="erreurMarcheNonTrouveFault" message="intf:erreurMarcheNonTrouveFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="rechercherMarchesParNom">
+      <wsdl:input name="rechercherMarchesParNomRequest" message="intf:rechercherMarchesParNomRequest"/>
+      <wsdl:output name="rechercherMarchesParNomResponse" message="intf:rechercherMarchesParNomResponse"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+      <wsdl:fault name="erreurMarcheNonTrouveFault" message="intf:erreurMarcheNonTrouveFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="creerMarche">
+      <wsdl:input name="creerMarcheRequest" message="intf:creerMarcheRequest"/>
+      <wsdl:output name="creerMarcheResponse" message="intf:creerMarcheResponse"/>
+      <wsdl:fault name="erreurMarcheInvalideFault" message="intf:erreurMarcheInvalideFault"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="modifierMarche">
+      <wsdl:input name="modifierMarcheRequest" message="intf:modifierMarcheRequest"/>
+      <wsdl:output name="modifierMarcheResponse" message="intf:modifierMarcheResponse"/>
+      <wsdl:fault name="erreurMarcheInvalideFault" message="intf:erreurMarcheInvalideFault"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="supprimerMarche">
+      <wsdl:input name="supprimerMarcheRequest" message="intf:supprimerMarcheRequest"/>
+      <wsdl:output name="supprimerMarcheResponse" message="intf:supprimerMarcheResponse"/>
+      <wsdl:fault name="erreurMarcheInvalideFault" message="intf:erreurMarcheInvalideFault"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="consulterMarche">
+      <wsdl:input name="consulterMarcheRequest" message="intf:consulterMarcheRequest"/>
+      <wsdl:output name="consulterMarcheResponse" message="intf:consulterMarcheResponse"/>
+      <wsdl:fault name="erreurMarcheNonTrouveFault" message="intf:erreurMarcheNonTrouveFault"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GestionMarcheSoapBinding" type="intf:GererMarcheSoap">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="rechercherMarches">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="rechercherMarchesRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="rechercherMarchesResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="erreurTechniqueFault">
+        <wsdlsoap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="erreurMarcheNonTrouveFault">
+        <wsdlsoap:fault name="erreurMarcheNonTrouveFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="rechercherMarchesParNom">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="rechercherMarchesParNomRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="rechercherMarchesParNomResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="erreurTechniqueFault">
+        <wsdlsoap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="erreurMarcheNonTrouveFault">
+        <wsdlsoap:fault name="erreurMarcheNonTrouveFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="creerMarche">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="creerMarcheRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="creerMarcheResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="erreurTechniqueFault">
+        <wsdlsoap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="modifierMarche">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="modifierMarcheRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="modifierMarcheResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="erreurMarcheInvalideFault">
+        <wsdlsoap:fault name="erreurMarcheInvalideFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="erreurTechniqueFault">
+        <wsdlsoap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="supprimerMarche">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="supprimerMarcheRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="supprimerMarcheResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="erreurMarcheInvalideFault">
+        <wsdlsoap:fault name="erreurMarcheInvalideFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="erreurTechniqueFault">
+        <wsdlsoap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consulterMarche">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="consulterMarcheRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consulterMarcheResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="erreurMarcheNonTrouveFault">
+        <wsdlsoap:fault name="erreurMarcheNonTrouveFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="erreurTechniqueFault">
+        <wsdlsoap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GererMarcheSoapService">
+    <wsdl:port name="GestionMarche" binding="intf:GestionMarcheSoapBinding">
+      <wsdlsoap:address location="http://localhost:9000/library/services/gerermarche-1.0"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="consulterMarche" bindingOperationName="consulterMarche" type="Request-Response" outputName="consulterMarcheResponse" inputName="consulterMarcheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="consulterMarche_Fault"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:consulterMarche>
+         <v1:id>0</v1:id>
+      </v1:consulterMarche>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/consulterMarcheRequest"/></con:call><con:call name="consulterMarche_OK"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:consulterMarche>
+         <v1:id>1</v1:id>
+      </v1:consulterMarche>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/consulterMarcheRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="creerMarche" bindingOperationName="creerMarche" type="Request-Response" outputName="creerMarcheResponse" inputName="creerMarcheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="creerMarcheEntreprise_OK"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1" xmlns:mod="http://www.orange.com/Interfaces/GererMarche/v1/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:creerMarche>
+         <v1:marche>
+            <!--Optional:-->
+            <mod:description>Description Marche Entreprise</mod:description>
+            <!--Optional:-->
+            <mod:nom>MarcheEntreprise</mod:nom>
+            <!--Optional:-->
+            <!--mod:id>?</mod:id-->
+         </v1:marche>
+      </v1:creerMarche>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/creerMarcheRequest"/></con:call><con:call name="creerMarcheEntreprise_Fault"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1" xmlns:mod="http://www.orange.com/Interfaces/GererMarche/v1/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:creerMarche>
+         <v1:marche>
+            <!--Optional:-->
+            <mod:description>Description Marche Entreprise</mod:description>
+            <!--Optional:-->
+            <mod:nom>badName</mod:nom>
+            <!--Optional:-->
+            <!--mod:id>?</mod:id-->
+         </v1:marche>
+      </v1:creerMarche>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/creerMarcheRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="modifierMarche" bindingOperationName="modifierMarche" type="Request-Response" outputName="modifierMarcheResponse" inputName="modifierMarcheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="modifierMarcheEntreprise_OK"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1" xmlns:mod="http://www.orange.com/Interfaces/GererMarche/v1/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:modifierMarche>
+         <v1:marche>
+            <!--Optional:-->
+            <mod:description>Description Marche Entreprise modifiee</mod:description>
+            <!--Optional:-->
+            <mod:nom>MarcheEntrepriseModifie</mod:nom>
+            <!--Optional:-->
+            <mod:id>1</mod:id>
+         </v1:marche>
+      </v1:modifierMarche>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/modifierMarcheRequest"/></con:call><con:call name="modifierMarcheEntreprise_Fault"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1" xmlns:mod="http://www.orange.com/Interfaces/GererMarche/v1/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:modifierMarche>
+         <v1:marche>
+            <!--Optional:-->
+            <mod:description>Description Marche Entreprise modifiee</mod:description>
+            <!--Optional:-->
+            <mod:nom>MarcheEntrepriseModifie</mod:nom>
+            <!--Optional:-->
+            <mod:id>0</mod:id>
+         </v1:marche>
+      </v1:modifierMarche>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/modifierMarcheRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="rechercherMarches" bindingOperationName="rechercherMarches" type="Request-Response" outputName="rechercherMarchesResponse" inputName="rechercherMarchesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="rechercherMarches_OK"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:rechercherMarches/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/rechercherMarchesRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="rechercherMarchesParNom" bindingOperationName="rechercherMarchesParNom" type="Request-Response" outputName="rechercherMarchesParNomResponse" inputName="rechercherMarchesParNomRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="rechercherMarchesParNom_OK"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:rechercherMarchesParNom>
+         <v1:nom>Entreprise</v1:nom>
+      </v1:rechercherMarchesParNom>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/rechercherMarchesParNomRequest"/></con:call><con:call name="rechercherMarchesParNom_Fault"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:rechercherMarchesParNom>
+         <v1:nom>badName</v1:nom>
+      </v1:rechercherMarchesParNom>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/rechercherMarchesParNomRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="supprimerMarche" bindingOperationName="supprimerMarche" type="Request-Response" outputName="supprimerMarcheResponse" inputName="supprimerMarcheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="supprimerMarcheEntreprise_OK"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:supprimerMarche>
+         <v1:id>1</v1:id>
+      </v1:supprimerMarche>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/supprimerMarcheRequest"/></con:call><con:call name="supprimerMarcheEntreprise_Fault"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:9010/mock_archetype_cxfcxf/services/gerermarche-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:supprimerMarche>
+         <v1:id>0</v1:id>
+      </v1:supprimerMarche>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/supprimerMarcheRequest"/></con:call></con:operation></con:interface><con:mockService port="9010" path="/mock_archetype_cxfconsumer/services/gerermarche-1.0" name="GestionMarcheSoapBinding MockService" host="FT-44E86CDCBB93" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="consulterMarche" interface="GestionMarcheSoapBinding" operation="consulterMarche"><con:settings/><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def holder = groovyUtils.getXmlHolder(mockRequest.requestContent)
+
+def id = holder.getNodeValue( "//*:id" )
+
+if (!id.equalsIgnoreCase("0")) {
+	return "mock_ConsulterMarche_OK"
+} else {
+	return "mock_ConsulterMarche_Fault"
+}</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="mock_ConsulterMarche_OK" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1" xmlns:mod="http://www.orange.com/Interfaces/GererMarche/v1/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:consulterMarcheResponse>
+         <v1:consulterMarcheReturn>
+            <!--Optional:-->
+            <mod:description>Description Marche Entreprise</mod:description>
+            <!--Optional:-->
+            <mod:nom>MarcheEntreprise</mod:nom>
+            <!--Optional:-->
+            <mod:id>1</mod:id>
+         </v1:consulterMarcheReturn>
+      </v1:consulterMarcheResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/consulterMarcheResponse"/></con:response><con:response name="mock_ConsulterMarche_Fault" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exc="http://www.orange.com/Interfaces/GererMarche/v1/exception">
+  <soapenv:Body>
+    <soapenv:Fault>
+      <faultcode>soapenv:Server</faultcode>
+      <faultstring>Marche inexistant : 0</faultstring>
+      <!--Optional:-->
+      <detail>
+        <exc:erreurMarcheNonTrouve>
+          <!--Optional:-->
+          <exc:message>Impossible de consulter le marche : 0</exc:message>
+        </exc:erreurMarcheNonTrouve>
+        <!--You may enter ANY elements at this point-->
+      </detail>
+    </soapenv:Fault>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/consulterMarcheResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="creerMarche" interface="GestionMarcheSoapBinding" operation="creerMarche"><con:settings/><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def holder = groovyUtils.getXmlHolder(mockRequest.requestContent)
+
+def nom = holder.getNodeValue( "//*:nom" )
+
+if (!nom.equalsIgnoreCase("badName")) {
+	return "mock_CreerMarche_OK"
+} else {
+	return "mock_CreerMarche_Fault"
+}</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="mock_CreerMarche_OK" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:creerMarcheResponse/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/creerMarcheResponse"/></con:response><con:response name="mock_CreerMarche_Fault" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exc="http://www.orange.com/Interfaces/GererMarche/v1/exception">
+  <soapenv:Body>
+    <soapenv:Fault>
+      <faultcode>soapenv:Server</faultcode>
+      <faultstring>Erreur technique</faultstring>
+      <!--Optional:-->
+      <detail>
+        <exc:erreurTechnique>
+          <!--Optional:-->
+          <exc:message>Impossible de creer le marche : erreur technique</exc:message>
+        </exc:erreurTechnique>
+        <!--You may enter ANY elements at this point-->
+      </detail>
+    </soapenv:Fault>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/creerMarcheResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="modifierMarche" interface="GestionMarcheSoapBinding" operation="modifierMarche"><con:settings/><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def holder = groovyUtils.getXmlHolder(mockRequest.requestContent)
+
+def id = holder.getNodeValue( "//*:id" )
+
+if (!id.equalsIgnoreCase("0")) {
+	return "mock_ModifierMarche_OK"
+} else {
+	return "mock_ModifierMarche_Fault"
+}</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="mock_ModifierMarche_OK" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:modifierMarcheResponse/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/modifierMarcheResponse"/></con:response><con:response name="mock_ModifierMarche_Fault" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exc="http://www.orange.com/Interfaces/GererMarche/v1/exception">
+  <soapenv:Body>
+    <soapenv:Fault>
+      <faultcode>soapenv:Server</faultcode>
+      <faultstring>Marche inexistant : 0</faultstring>
+      <!--Optional:-->
+      <detail>
+        <exc:erreurMarcheInvalide>
+          <!--Optional:-->
+          <exc:message>Impossible de modifier le marche : 0</exc:message>
+        </exc:erreurMarcheInvalide>
+        <!--You may enter ANY elements at this point-->
+      </detail>
+    </soapenv:Fault>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/modifierMarcheResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="rechercherMarches" interface="GestionMarcheSoapBinding" operation="rechercherMarches"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="mock_RechercherMarches_OK" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1" xmlns:mod="http://www.orange.com/Interfaces/GererMarche/v1/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:rechercherMarchesResponse>
+         <!--1 or more repetitions:-->
+         <v1:rechercherMarchesReturn>
+            <!--Optional:-->
+            <mod:description>Description Marche Entreprise</mod:description>
+            <!--Optional:-->
+            <mod:nom>MarcheEntreprise</mod:nom>
+            <!--Optional:-->
+            <mod:id>1</mod:id>
+         </v1:rechercherMarchesReturn>
+         <v1:rechercherMarchesReturn>
+            <!--Optional:-->
+            <mod:description>Description Marche Residentiel</mod:description>
+            <!--Optional:-->
+            <mod:nom>MarcheResidentiel</mod:nom>
+            <!--Optional:-->
+            <mod:id>2</mod:id>
+         </v1:rechercherMarchesReturn>
+      </v1:rechercherMarchesResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/rechercherMarchesResponse"/></con:response><con:response name="mock_RechercherMarches_Fault" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exc="http://www.orange.com/Interfaces/GererMarche/v1/exception">
+  <soapenv:Body>
+    <soapenv:Fault>
+      <faultcode>soapenv:Server</faultcode>
+      <faultstring>Aucun marche existant</faultstring>
+      <!--Optional:-->
+      <detail>
+        <exc:erreurMarcheNonTrouve>
+          <!--Optional:-->
+          <exc:message>Aucun marche n'existe</exc:message>
+        </exc:erreurMarcheNonTrouve>
+        <!--You may enter ANY elements at this point-->
+      </detail>
+    </soapenv:Fault>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/rechercherMarchesResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="rechercherMarchesParNom" interface="GestionMarcheSoapBinding" operation="rechercherMarchesParNom"><con:settings/><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def holder = groovyUtils.getXmlHolder(mockRequest.requestContent)
+
+def nom = holder.getNodeValue( "//*:nom" )
+
+if (!nom.equalsIgnoreCase("badName")) {
+	return "mock_RechercherMarchesParNom_OK"
+} else {
+	return "mock_RechercherMarchesParNom_Fault"
+}</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="mock_RechercherMarchesParNom_OK" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:rechercherMarchesParNomResponse>
+         <!--1 or more repetitions:-->
+         <v1:rechercherMarchesParNomReturn/>
+      </v1:rechercherMarchesParNomResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/rechercherMarchesParNomResponse"/></con:response><con:response name="mock_RechercherMarchesParNom_Fault" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exc="http://www.orange.com/Interfaces/GererMarche/v1/exception">
+  <soapenv:Body>
+    <soapenv:Fault>
+      <faultcode>soapenv:Server</faultcode>
+      <faultstring>Aucun marche existant : badName</faultstring>
+      <!--Optional:-->
+      <detail>
+        <exc:erreurMarcheNonTrouve>
+          <!--Optional:-->
+          <exc:message>Aucun marche n'existe pour le nom : badName</exc:message>
+        </exc:erreurMarcheNonTrouve>
+        <!--You may enter ANY elements at this point-->
+      </detail>
+    </soapenv:Fault>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/rechercherMarchesParNomResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="supprimerMarche" interface="GestionMarcheSoapBinding" operation="supprimerMarche"><con:settings/><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def holder = groovyUtils.getXmlHolder(mockRequest.requestContent)
+
+def id = holder.getNodeValue( "//*:id" )
+
+if (!id.equalsIgnoreCase("0")) {
+	return "mock_SupprimerMarche_OK"
+} else {
+	return "mock_SupprimerMarche_Fault"
+}</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="mock_SupprimerMarche_OK" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.orange.com/Interfaces/GererMarche/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:supprimerMarcheResponse/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/supprimerMarcheResponse"/></con:response><con:response name="mock_SupprimerMarche_Fault" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:exc="http://www.orange.com/Interfaces/GererMarche/v1/exception">
+  <soapenv:Body>
+    <soapenv:Fault>
+      <faultcode>soapenv:Server</faultcode>
+      <faultstring>Marche inexistant : 0</faultstring>
+      <!--Optional:-->
+      <detail>
+        <exc:erreurMarcheInvalide>
+          <!--Optional:-->
+          <exc:message>Impossible de supprimer le marche : 0</exc:message>
+        </exc:erreurMarcheInvalide>
+        <!--You may enter ANY elements at this point-->
+      </detail>
+    </soapenv:Fault>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.orange.com/Interfaces/GererMarche/v1/GererMarcheSoap/supprimerMarcheResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/></con:soapui-project>

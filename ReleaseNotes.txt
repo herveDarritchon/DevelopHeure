@@ -1,0 +1,67 @@
+------------------------------------
+----- orange-archetype-cxf-cxf -----
+------------------------------------
+
+This project has been generated from :
+- Archetype : orange-archetype-cxf-cxf
+- Version : 2.0.0
+- Creation : September 2013
+
+Release 2.0.0
+-------------
+- Upgrade default Java version from 1.6 to 1.7
+- Add JBoss AS 7.2.0 and JBoss EAP 6.1.0 support. Jonas 5 is still the default application server. To change it, see library.properties in war resources
+- Remove commons-logging from dependencies
+- add resource-ref on JDBC datasource for Jonas and JBoss (see jboss-web.xml and jonas-web.xml descriptors in war module)
+- Upgrade cargo plugin version from 1.1.4 to 1.4.3, define cargo-jonas and cargo-jboss profiles instead of cargo profile
+- Upgrade Spring framework version from 3.1.0 to 3.2.3
+- Upgrade Cxf framework version from 2.4.5 to 2.7.5
+- Upgrade Dozer framework version from 5.2.0 to 5.4.0 
+- Upgrade slf4j version from 1.6.5 to 1.7.5
+- Upgrade logback version from 1.0.0 to 1.0.13
+- Upgrade mockito version from 1.8.5 to 1.9.5
+- Upgrade JUnit version from 4.8.2 to 4.11
+- Upgrade all maven plugins
+
+Release 1.2.0
+-------------
+- Do not share cargo configuration in parent pom
+- Replace yourdev with orangeforge
+- Add two wsdl modules to share WSDL across client and server
+
+Release 1.1.0
+-------------
+Bug fixed :
+- FunctionalException inherits now from Exception (instead of RuntimeException)
+
+Versions upgrades :
+- Full Jonas 5.1 and 5.2 support with JDK 1.6, Jonas 4 support removed
+- Spring dependencies :
+	- Spring 3.1.0.RELEASE is the new recommended version (instead of 2.5.6)
+- CXF : 
+	- cxf dependencies 2.4.1 (instead of 2.1.8)
+	- cxf-codegen-plugin 2.4.1 (instead of 2.2.9)
+	- spring config for cxf (jaxwsMarketContext.xml and/or soapConsumerContext.xml) : 
+		- cxf-*.xml files removed (only cxf.xml needed in cxf 2.4.1)
+- Junit : Junit 4.5 (instead of 4.4)
+- Logs dependencies : 
+	- slf4j API 1.6.4
+	- LogBack implementation 1.0.0 (instead of log4j 1.2.14)
+- Maven plugin : all maven plugins have been upgraded to latest version
+- Maven 3 : update pom files to remove maven 3 warnings, use pom-corporate version 3.0
+
+Other enhancements :
+- add m2e eclipse configuration in pom.xml files, for Eclipse 3.7 Indigo, available in S7D1 platform
+- all modules version and groupId tags removed (inherited from parent pom.xml)
+- jonas-web.xml : delegation-model set to true (default behavior, this file is deprecated with Jonas 5.2, use classloader-filtering instead)
+- classloader-filtering.xml added to replace jonas-web.xml file
+- remove ear classifier, because this generates continuous integration problems. Preferred way is to use properties file in JONAS_BASE/conf
+	
+Release 1.0.x
+-------------
+- Minor bug fixes
+
+Release 1.0.0
+-------------
+- Initial revision
+

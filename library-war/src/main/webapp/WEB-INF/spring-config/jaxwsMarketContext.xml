@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:wsa="http://cxf.apache.org/ws/addressing"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xsi:schemaLocation="
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- This import is only necessary if advanced CXF configuration is required (not the case here) -->
+	<!-- As of CXF 2.4.x this is the only needed import. Other module configurations are loaded internally by CXF -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<!-- dozer configuration -->
+	<bean id="soapMapper" class="com.orange.library.library.providersoap.mapping.SoapMapper" >
+	  <property name="mappingFiles">
+	    <list>
+	      <value>dozer/soap-mapping.xml</value>
+	    </list>
+	  </property>
+	</bean>
+
+	<!--  service implementation - the link to application layer is done here -->
+	<bean id="manageMarketSoap" class="com.orange.library.library.providersoap.service.impl.ManageMarketSoapImpl" >
+		<property name="manageMarket" ref="manageMarketApplication" />
+		<property name="mapper" ref="soapMapper" />		
+	</bean>
+
+	<!--  endpoint for managemarket-1.0  -->
+	<jaxws:endpoint id="manageMarketEndpoint"
+		implementor="#manageMarketSoap"
+		wsdlLocation="classpath:/wsdl/managemarket-1.0.wsdl"
+		address="/managemarket-1.0">
+
+	</jaxws:endpoint>
+
+
+</beans>
