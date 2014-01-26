@@ -7,7 +7,7 @@
 	
 	<!-- application layer -->
 	<bean id="manageMarketApplication"
-		class="com.orange.library.library.application.impl.ManageMarketImpl" 
+		class="com.orange.librarypackage.library.application.impl.ManageMarketImpl" 
 		scope="singleton">
 		<property name="manageMarketBusiness">
 			<ref bean="manageMarketBusiness"/>
@@ -16,7 +16,7 @@
 
 	<!-- business layer -->
 	<bean id="manageMarketBusiness" 
-		class="com.orange.library.library.business.impl.ManageMarketBusinessImpl">
+		class="com.orange.librarypackage.library.business.impl.ManageMarketBusinessImpl">
 		<property name="gererMarche">
 			<ref bean="gererMarche"/>
 		</property>

@@ -1,7 +1,7 @@
-com\orange\library\library\technicalservice\exception\InvalidMarketException.class
-com\orange\library\library\technicalservice\exception\FunctionalException.class
-com\orange\library\library\technicalservice\exception\DAOException.class
-com\orange\library\library\technicalservice\tool\Objects.class
-com\orange\library\library\technicalservice\exception\OptimisticLockingFailureException.class
-com\orange\library\library\technicalservice\exception\TechnicalException.class
-com\orange\library\library\technicalservice\exception\NotFoundException.class
+com/orange/librarypackage/library/technicalservice/exception/OptimisticLockingFailureException.class
+com/orange/librarypackage/library/technicalservice/exception/DAOException.class
+com/orange/librarypackage/library/technicalservice/exception/NotFoundException.class
+com/orange/librarypackage/library/technicalservice/exception/FunctionalException.class
+com/orange/librarypackage/library/technicalservice/exception/TechnicalException.class
+com/orange/librarypackage/library/technicalservice/tool/Objects.class
+com/orange/librarypackage/library/technicalservice/exception/InvalidMarketException.class

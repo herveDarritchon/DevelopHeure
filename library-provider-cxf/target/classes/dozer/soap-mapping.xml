@@ -8,7 +8,7 @@
 		<!-- Example for date conversion -->
 		<custom-converters><!-- these are always bi-directional -->
 			<converter
-				type="com.orange.library.library.providersoap.mapping.XMLGregorianConverter">
+				type="com.orange.librarypackage.library.providersoap.mapping.XMLGregorianConverter">
 				<class-a>
 					javax.xml.datatype.XMLGregorianCalendar
 				</class-a>
@@ -20,9 +20,9 @@
 	<!-- As Soap model and Bean model have same properties, no need to customize dozer mapping -->
 	<mapping>
 		<class-a>
-			com.orange.library.library.providersoap.model.MarketSoap
+			com.orange.librarypackage.library.providersoap.model.MarketSoap
 		</class-a>
-		<class-b>com.orange.library.library.model.MarketBean</class-b>
+		<class-b>com.orange.librarypackage.library.model.MarketBean</class-b>
 
 	</mapping>
 

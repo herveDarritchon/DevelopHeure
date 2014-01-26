@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.orange.library</groupId>
+		<groupId>com.orange.librarypackage</groupId>
 		<artifactId>library</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
@@ -16,22 +16,22 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.orange.library</groupId>
+			<groupId>com.orange.librarypackage</groupId>
 			<artifactId>library-technicalservice</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>com.orange.library</groupId>
+			<groupId>com.orange.librarypackage</groupId>
 			<artifactId>library-model</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>com.orange.library</groupId>
+			<groupId>com.orange.librarypackage</groupId>
 			<artifactId>library-application</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>com.orange.library</groupId>
+			<groupId>com.orange.librarypackage</groupId>
 			<artifactId>library-provider-wsdl</artifactId>
 		</dependency>
 

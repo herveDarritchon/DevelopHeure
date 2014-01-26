@@ -10,7 +10,7 @@
             <executionNode>library-jee</executionNode>
 			<!-- use the maven references fields on release architecture details page -->
             <artifact>
-                <groupId>com.orange.library.library</groupId>
+                <groupId>com.orange.librarypackage.library</groupId>
                 <artifactId>library-ear</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
                 <type>ear</type>

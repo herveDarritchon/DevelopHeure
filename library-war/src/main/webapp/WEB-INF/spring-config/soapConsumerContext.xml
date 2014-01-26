@@ -13,7 +13,7 @@
 	
 	<!-- consumer layer -->
 	<bean id="gererMarche" 
-		class="com.orange.library.library.consumersoap.impl.GererMarcheImpl">
+		class="com.orange.librarypackage.library.consumersoap.impl.GererMarcheImpl">
 		<property name="gererMarcheSoapProxy">
 			<ref bean="gererMarcheSoapProxy"/>
 		</property>
@@ -22,18 +22,19 @@
 		 </property>	
 	</bean>
 
-	<bean id="gererMarcheSoapProxy" 
-		class="com.orange.library.library.consumersoap.service.GererMarcheSoap" 
+	<bean id="gererMarcheSoapProxy"
+			
+		class="com.orange.librarypackage.consumersoap.service.GererMarcheSoap"
 		factory-bean="gererMarcheSoapFactory" factory-method="create" />		
 
 	<bean id="gererMarcheSoapFactory"
 		class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
-		<property name="serviceClass" value="com.orange.library.library.consumersoap.service.GererMarcheSoap"/>
+		<property name="serviceClass" value="com.orange.librarypackage.consumersoap.service.GererMarcheSoap"/>
 		<property name="address" value="http://localhost:9010/mock_archetype_cxfconsumer/services/gerermarche-1.0"/>
 	</bean>
 
 	<!-- dozer configuration -->
-	<bean id="mapperSoap" class="com.orange.library.library.consumersoap.mapping.MapperSoap" >
+	<bean id="mapperSoap" class="com.orange.librarypackage.library.consumersoap.mapping.MapperSoap" >
 	  <property name="mappingFiles">
 	    <list>
 	      <value>dozer/mapping-soap.xml</value>

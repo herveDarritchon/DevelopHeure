@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:cxf="http://cxf.apache.org/core"
-	xmlns:wsa="http://cxf.apache.org/ws/addressing"
-	xmlns:jaxws="http://cxf.apache.org/jaxws"
-    xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:wsa="http://cxf.apache.org/ws/addressing" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
 	xsi:schemaLocation="
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
@@ -16,7 +14,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
 	<!-- dozer configuration -->
-	<bean id="soapMapper" class="com.orange.library.library.providersoap.mapping.SoapMapper" >
+	<bean id="soapMapper" class="com.orange.librarypackage.library.providersoap.mapping.SoapMapper" >
 	  <property name="mappingFiles">
 	    <list>
 	      <value>dozer/soap-mapping.xml</value>
@@ -25,7 +23,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 	</bean>
 
 	<!--  service implementation - the link to application layer is done here -->
-	<bean id="manageMarketSoap" class="com.orange.library.library.providersoap.service.impl.ManageMarketSoapImpl" >
+	<bean id="manageMarketSoap" class="com.orange.librarypackage.library.providersoap.service.impl.ManageMarketSoapImpl" >
 		<property name="manageMarket" ref="manageMarketApplication" />
 		<property name="mapper" ref="soapMapper" />		
 	</bean>

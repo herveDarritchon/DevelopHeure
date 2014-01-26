@@ -8,7 +8,7 @@
 		<dependencySet>
 			<includes>
 				<!-- Include application (ear file) -->
-				<include>com.orange.library.library:library-ear</include>
+				<include>com.orange.librarypackage.library:library-ear</include>
 			</includes>
 		</dependencySet>
 	</dependencySets>

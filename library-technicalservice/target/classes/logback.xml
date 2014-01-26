@@ -20,7 +20,7 @@
       <MaxFileSize>1000KB</MaxFileSize>
     </triggeringPolicy>
   </appender>
-  <logger name="com.orange.library.library" level="DEBUG"/>
+  <logger name="com.orange.librarypackage.library" level="DEBUG"/>
   <root level="INFO">
     <appender-ref ref="stdout"/>
     <appender-ref ref="file"/>
